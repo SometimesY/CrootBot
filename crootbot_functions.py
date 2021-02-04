@@ -240,5 +240,5 @@ def team_class(year, team):
 	return team_class
 
 def bottom_text(post_or_comment, post_or_comment_id):
-	return 'Any bugs can be submitted as a PM to me [here](https://www.reddit.com/message/compose/?to=CFBCrootBot&subject=Bug+report+on+' + post_or_comment + '+id+' + post_or_comment_id + '&message=Enter+description+of+bug)! I am still learning, so please bear with me. Rivals and ESPN rankings are hopefully coming soonish!'
+	return 'Any bugs can be submitted as a PM to me [here](https://www.reddit.com/message/compose/?to=CFBCrootBot&subject=Bug+report+on+' + post_or_comment + '+id+' + post_or_comment_id + '&message=Enter+description+of+bug)! I am still learning, so please bear with me. Rivals and ESPN rankings are hopefully coming soonish! Check out the github repository for CFBCrootBot [here](https://github.com/SometimesY/CrootBot)!'
 
