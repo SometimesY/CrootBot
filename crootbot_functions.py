@@ -198,16 +198,19 @@ def commit_text(url):
 	
 	return text
 
-def team_class(year, team):
+def team_class(year, team, team_name=None):
+	if team_name is None:
+		team_name = team
+	
 	try:
-		url = 'https://247sports.com/college/' + team.replace(' ', '-').replace('(OH)', '(Ohio)').replace('&', '').replace('(', '').replace(')', '').replace('é', 'e').replace("'", '') + '/Season/' + str(year) + '-Football/Commits/'
+		url = 'https://247sports.com/college/' + team_name.replace(' ', '-').replace('&', '').replace('(', '').replace(')', '').replace('é', 'e').replace("'", '') + '/Season/' + str(year) + '-Football/Commits/'
 		headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'}
 		page = requests.get(url, headers=headers)
 		tree = html.fromstring(page.content)
 	except:
 		return None
 	
-	team_class = '##' + team.title() + ' ' + str(year) + ' Class\n\n'
+	team_class = '##' + team + ' ' + str(year) + ' Class\n\n'
 	
 	national_rank = tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/section/div[1]/a/text()')[0]
 	conference_rank = tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/section/div[2]/a/text()')[0]
