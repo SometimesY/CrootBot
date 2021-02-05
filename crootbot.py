@@ -53,12 +53,18 @@ for message in reddit.inbox.unread():
 				# Use u/ rather than /u/ since not everyone pings via /u/ these days
 				year = body.split('u/' + config.username)[1].strip().split(' ')[0].strip()
 				team = body.split(year)[1].strip()
+				
+				try:
+					team_name = config.team_names[team]
+				except:
+					team_name = None
+				
 				year = int(year)
 				
-				comment_text = crootbot_functions.team_class(year, team) + '\n\n'
+				comment_text = crootbot_functions.team_class(year, team, team_name) + '\n\n'
 				comment_text += crootbot_functions.bottom_text('comment', str(comment))
 				
-				reply = comment.reply(crootbot_functions.team_class(year, team))
+				reply = comment.reply(comment_text)
 				reply.disable_inbox_replies()
 				comment.mark_read()
 			except:
