@@ -25,6 +25,8 @@ for post in reddit.subreddit(config.subreddit).new(limit=50):
 		continue
 	
 	if ('*' in title or 'star' in title) and ('commit' in title or 'decommit' in title or 'flip' in title):
+		comment_text = ''
+		
 		try:
 			url = post.selftext.lower().split('/')
 			url = url[url.index('player') + 1] # get unique player URI
@@ -48,6 +50,7 @@ for message in reddit.inbox.unread():
 		if subreddit == config.subreddit:
 			body = comment.body
 			body = body.replace(':', '')
+			comment_text = ''
 			
 			try:
 				# Use u/ rather than /u/ since not everyone pings via /u/ these days
