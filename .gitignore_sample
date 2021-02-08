@@ -1,0 +1,5 @@
+config.py
+.gitignore
+*~
+posts.log
+__pycache__
