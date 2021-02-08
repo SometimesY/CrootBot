@@ -1,6 +1,5 @@
 import requests
 from lxml import html
-import getRivals
 from config import positions
 
 
