@@ -1,5 +1,25 @@
 import json, requests
 
+def strip_suffix(name):
+	if name.endswith(' Jr'):
+		name = name.replace('Jr', '')
+	elif name.endswith(' Jr.'):
+		name = name.replace('Jr.', '')
+	elif name.endswith(' II'):
+		name = name.replace('II', '')
+	elif name.endswith(' III'):
+		name = name.replace('III', '')
+	elif name.endswith(' IV'):
+		name = name.replace('IIII', '')
+	elif name.endswith(' V'):
+		name = name.replace('V', '')
+	elif name.endswith(' VI'):
+		name = name.replace('VI', '')
+	elif name.endswith(' VII'):
+		name = name.replace('VII', '')
+	
+	return name.strip()
+
 def matching_player(name, year, hometown):
 	url = "https://n.rivals.com/api/v1/people"
 	
@@ -23,7 +43,7 @@ def matching_player(name, year, hometown):
 	players = json.loads(response.text)['people']
 	
 	for player in players:
-		if player['full_name'].lower() == name.lower() and player['hometown'].lower() == hometown.lower():
+		if strip_suffix(player['full_name']).lower() == strip_suffix(name.lower()) and player['hometown'].lower() == hometown.lower():
 			return player
 
 def url(player):
