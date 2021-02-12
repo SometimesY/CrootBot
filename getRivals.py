@@ -36,14 +36,15 @@ def matching_player(name, year, hometown):
 		'TE': 'Trailers'
 	}
 	
-	payload = "{\"search\": {\"member\": \"Prospect\", \"query\": \"" + name + "\", \"sport\": \"Football\", \"page_number\": \"1\", \"page_size\": \"50\", \"recruit_year\": \"" + year + "\"}}"
+	payload = "{\"search\": {\"member\": \"Prospect\", \"query\": \"" + strip_suffix(name) + "\", \"sport\": \"Football\", \"page_number\": \"1\", \"page_size\": \"50\", \"recruit_year\": \"" + year + "\"}}"
 	
 	response = requests.request("POST", url, headers=headers, data=payload)
 	
 	players = json.loads(response.text)['people']
 	
 	for player in players:
-		if strip_suffix(player['full_name']).lower() == strip_suffix(name.lower()) and player['hometown'].lower() == hometown.lower():
+		player_name = ' '.join(player['full_name'].split())
+		if strip_suffix(player_name).lower() == strip_suffix(name).lower() and player['hometown'].replace('Saint', 'St.').lower() == hometown.replace('Saint', 'St.').lower():
 			return player
 
 def url(player):
@@ -60,5 +61,6 @@ def stars(player):
 			star_list += '☆'
 	
 	return star_list
+
 
 

@@ -1,4 +1,5 @@
 import requests
+from datetime import datetime
 from lxml import html
 import get247, getRivals
 from config import positions
@@ -122,6 +123,9 @@ def commit_text(url):
 	#   Recent commitment history  #
 	################################
 	
+	if '/high-school/' in url:
+		url = url.split('/high-school/')[0]
+	
 	commitment_tree = page_tree(url + '/TimelineEvents')
 	commitment_history = get247.commitment_history(commitment_tree)
 	
@@ -173,7 +177,28 @@ def team_class(year, team, team_name=None):
 	
 	return team_class
 
+def transfer(school, name):
+	current_year = datetime.now().year
+	
+	for year in range (current_year - 6, current_year): #check the previous six years
+		url = 'https://247sports.com/college/' + school + '/Season/' + str(year) + '-Football/Commits/'
+		tree = page_tree(url)
+		
+		# Enrollees
+		for i in range (1, len(tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/ul')[0])):
+			try:
+				player_name = tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/ul/li[' + str(i) + ']/div[1]/div[2]/a/text()')[0]
+				player_page = tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/ul/li[' + str(i) + ']/div[1]/div[2]/a')[0].attrib['href']
+				player_page = 'https:' + player_page + '/high-school/'
+				
+				if player_name.lower() in name.lower() or name.lower() in player_name.lower():
+					return commit_text(player_page)
+			except:
+				pass
+	
+
 def bottom_text(post_or_comment, post_or_comment_id):
 	return 'Any bugs can be submitted as a PM to me [here](https://www.reddit.com/message/compose/?to=CFBCrootBot&subject=Bug+report+on+' + post_or_comment + '+id+' + post_or_comment_id + '&message=Enter+description+of+bug)! I am still learning, so please bear with me. I now have Rivals rankings, but they are not perfect. ESPN rankings are hopefully coming soonish. Check out the github repository for CFBCrootBot [here](https://github.com/SometimesY/CrootBot)!'
+
 
 
