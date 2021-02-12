@@ -181,7 +181,7 @@ def transfer(school, name):
 	current_year = datetime.now().year
 	
 	for year in range (current_year - 6, current_year): #check the previous six years
-		url = 'https://247sports.com/college/' + school + '/Season/' + str(year) + '-Football/Commits/'
+		url = 'https://247sports.com/college/' + school.replace(' ', '-').replace('&', '').replace('é', 'e').replace("'", '') + '/Season/' + str(year) + '-Football/Commits/'
 		tree = page_tree(url)
 		
 		# Enrollees

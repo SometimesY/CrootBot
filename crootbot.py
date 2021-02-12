@@ -41,6 +41,44 @@ for post in reddit.subreddit(config.subreddit).new(limit=50):
 			posts[str(post)] = int(comment.created_utc)
 		except:
 			pass
+	elif ' to transfer' in title or ' to grad transfer' in title or ' transfers to' in title or ' enters the portal' in title or ' has entered the portal' in title or ' enters the transfer portal' in title or ' has entered the transfer portal' in title or ' enters NCAA transfer portal' in title or ' has entered the NCAA transfer portal' in title:
+		try:
+			for position in config.position_list:
+				if ' ' + position.lower() + ' ' in title:
+					school = title.split(' ' + position.lower() + ' ')[0].strip()
+					player = title.split(' ' + position.lower() + ' ')[1].strip()
+					
+					if ' to transfer' in player:
+						player = player.split(' to transfer')[0].strip()
+					elif ' to grad transfer' in player:
+						player = player.split(' to grad transfer')[0].strip()
+					elif ' grad transfers to' in player:
+						player = player.split(' grad transfers to')[0].strip()
+					elif ' transfers to' in player:
+						player = player.split(' transfers to')[0].strip()
+					elif ' enters the portal' in player:
+						player = player.split(' enters the portal')[0].strip()
+					elif ' has entered the portal' in player:
+						player = player.split(' has entered the portal')[0].strip()
+					elif ' enters the transfer portal' in player:
+						player = player.split(' enters transfer portal')[0].strip()
+					elif ' has entered the transfer portal' in player:
+						player = player.split(' has entered the transfer portal')[0].strip()
+					elif ' enters the NCAA transfer portal' in player:
+						player = player.split(' enters the NCAA transfer portal')[0].strip()
+					elif ' has entered the NCAA transfer portal' in player:
+						player = player.split(' has entered the NCAA transfer portal')[0].strip()
+					
+					comment_text = crootbot_functions.transfer(school, player)
+					comment_text += crootbot_functions.bottom_text('post', str(post))
+#					print(comment_text)
+					
+					comment = reddit.submission(id=post.id).reply(comment_text)
+					comment.disable_inbox_replies()
+					
+					posts[str(post)] = int(comment.created_utc)
+		except:
+			pass
 
 for message in reddit.inbox.unread():
 	try:
