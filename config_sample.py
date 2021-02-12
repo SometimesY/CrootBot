@@ -13,6 +13,8 @@ positions = {'PRO': 'Pro-Style Quarterback', 'DUAL': 'Dual-Threat Quarterback', 
 		'ILB': 'Inside Linebacker', 'OLB': 'Outside Linebacker', 'CB': 'Cornerback', 'S': 'Safety', 'ATH': 'Athlete',
 		'K': 'Kicker', 'LS': 'Long Snapper', 'RET': 'Returner'}
 
+position_list = ['QB', 'RB', 'DL', 'DB', 'LB', 'DE', 'OLB', 'ILB', 'CB', 'S', 'P', 'K', 'ATH', 'DT', 'OG', 'OT', 'C', 'OL', 'FB', 'HB', 'WDE', 'OC', 'WR', 'TE', 'APB', 'LS', 'PRO', 'DUAL', 'SDE']
+
 team_names = {'NC State': 'North Carolina State', 'UCF': 'Central Florida', 'USF': 'South Florida', 'FIU': 'Florida International',
 		'Miami (OH)': 'Miami Ohio', 'Miami (Ohio)': 'Miami Ohio', 'ECU': 'East Carolina', 'ULM': 'Lousiana-Monroe',
 		'Connecticut': 'UConn', 'UAB': 'Alabama Birmingham', 'Southern Miss': 'Southern Mississippi', 'UMass': 'Massachusetts',
