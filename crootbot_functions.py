@@ -32,7 +32,7 @@ def commit_text(url):
 	
 	if team_all_time_ranking != '' and team_all_time_ranking is not None:
 		team = tree.xpath('//*[@id="page-content"]/div/section/section/div/ul/li[1]/div[1]/a[1]/text()')[0].strip()
-		text += '[\#' + team_all_time_ranking + ' recruit all time for ' + team + '](https://247sports.com/college/' + team + '/Sport/Football/AllTimeRecruits/)'
+		text += '[\#' + team_all_time_ranking + ' recruit all-time for ' + team + '](https://247sports.com/college/' + team + '/Sport/Football/AllTimeRecruits/)'
 		text += '\n\n'
 	
 	text += '| SERVICE | RATING | POSITION | STATE | OVERALL |\n'
@@ -239,7 +239,7 @@ def transfer(school, name):
 	
 
 def bottom_text(post_or_comment, post_or_comment_id):
-	return 'Any bugs can be submitted as a PM to me [here](https://www.reddit.com/message/compose/?to=CFBCrootBot&subject=Bug+report+on+' + post_or_comment + '+id+' + post_or_comment_id + '&message=Enter+description+of+bug)! I am still learning, so please bear with me. I now have Rivals rankings, but they are not perfect. ESPN rankings are hopefully coming soonish. Check out the github repository for CFBCrootBot [here](https://github.com/SometimesY/CrootBot)!'
+	return 'Any bugs can be submitted as a PM to me [here](https://www.reddit.com/message/compose/?to=CFBCrootBot&subject=Bug+report+on+' + post_or_comment + '+id+' + post_or_comment_id + '&message=Enter+description+of+bug)! I am still learning, so please bear with me. I now have Rivals rankings, but they are not perfect. ESPN rankings are hopefully coming soonish. Check out the github repository for CFBCrootBot [here](https://github.com/SometimesY/CrootBot)!\n\nMake sure to check out the /r/CFB recruiting tool [here](https://www.redditcfb.com/recruiting.php) for generating your own commit posts.'
 
 
 
