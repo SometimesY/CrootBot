@@ -71,7 +71,6 @@ for post in reddit.subreddit(config.subreddit).new(limit=50):
 					
 					comment_text = crootbot_functions.transfer(school, player)
 					comment_text += crootbot_functions.bottom_text('post', str(post))
-#					print(comment_text)
 					
 					comment = reddit.submission(id=post.id).reply(comment_text)
 					comment.disable_inbox_replies()
@@ -109,7 +108,21 @@ for message in reddit.inbox.unread():
 				reply.disable_inbox_replies()
 				comment.mark_read()
 			except:
-				pass
+				try:
+					year = body.split('u/' + config.username)[1].strip().split(' ')[0].strip()
+					position = body.split(year)[1].strip().split(' ')[0].strip()
+					player = body.split(position)[1].strip()
+					first_name = player.split(' ')[0].strip()
+					last_name = player.split(first_name)[1].strip()
+					
+					comment_text = crootbot_functions.recruit_search(year, last_name, first_name, position) + '\n\n'
+					comment_text += crootbot_functions.bottom_text('comment', str(comment))
+					
+					reply = comment.reply(comment_text)
+					reply.disable_inbox_replies()
+					comment.mark_read()
+				except:
+					pass
 	except:
 		pass
 

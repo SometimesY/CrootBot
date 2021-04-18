@@ -1,8 +1,10 @@
-import requests
+import json, requests
 from datetime import datetime
 from lxml import html
 import get247, getRivals
 from config import positions
+from config import position_keys
+from config import team_names
 
 headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36'}
 
@@ -17,6 +19,22 @@ def commit_text(url):
 	text += '##' + positions[get247.position(tree)] + ', Class of ' + get247.year(tree) + '\n\n'
 	text += get247.height(tree) + ', ' + get247.weight(tree) + ' — From ' + get247.hometown(tree) + ' (' + get247.school(tree) + ')\n\n'
 	text += '###Rankings\n\n'
+	
+	team = tree.xpath('//*[@id="page-content"]/div/section/section/div/ul/li[1]/div[1]/a[1]/text()')[0].strip()
+	
+	try:
+		team = team_names[team]
+	except:
+		pass
+	
+	all_time_ranking_tree = page_tree('https://247sports.com/college/' + team + '/Sport/Football/AllTimeRecruits/')
+	team_all_time_ranking = str(get247.all_time_ranking(all_time_ranking_tree, get247.name(tree), get247.year(tree)))
+	
+	if team_all_time_ranking != '' and team_all_time_ranking is not None:
+		team = tree.xpath('//*[@id="page-content"]/div/section/section/div/ul/li[1]/div[1]/a[1]/text()')[0].strip()
+		text += '[\#' + team_all_time_ranking + ' recruit all time for ' + team + '](https://247sports.com/college/' + team + '/Sport/Football/AllTimeRecruits/)'
+		text += '\n\n'
+	
 	text += '| SERVICE | RATING | POSITION | STATE | OVERALL |\n'
 	text += '|:-:|:-:|:-:|:-:|:-:|\n'
 	
@@ -134,6 +152,29 @@ def commit_text(url):
 		text += '---\n\n'
 	
 	return text
+
+def recruit_search(year, last_name, first_name, position):
+	url = 'https://247sports.com/Season/' + year + '-Football/Recruits.json?&Items=15&Page=1&Player.LastName=' + last_name + '&Player.FirstName=' + first_name + '&Position.Key=' + position_keys[position]
+	
+	payload={}
+	
+	headers = {'authority': '247sports.com',
+			'dnt': '1',
+			'x-requested-with': 'XMLHttpRequest',
+			'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.146 Safari/537.36',
+			'content-type': 'text/html; charset=utf-8',
+			'accept': '*/*',
+			'sec-fetch-site': 'same-origin',
+			'sec-fetch-mode': 'cors',
+			'sec-fetch-dest': 'empty',
+			'referer': 'https://247sports.com/Season/' + year + '-Football/Recruits/?&Player.LastName=' + last_name + '&Player.FirstName=' + first_name,
+			'accept-language': 'en-US,en;q=0.9'}
+	
+	response = requests.request("GET", url, headers=headers, data=payload)
+	if year < str(datetime.now().year):
+		return commit_text(json.loads(response.text)[0]['Player']['Url'] + 'high-school/')
+	else:
+		return commit_text(json.loads(response.text)[0]['Player']['Url'])
 
 def team_class(year, team, team_name=None):
 	if team_name is None:

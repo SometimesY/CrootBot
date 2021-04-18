@@ -73,6 +73,13 @@ def rankings(rankings_container):
 	
 	return rankings
 
+def all_time_ranking(tree, name, year):
+	rankings_container = tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/ul')[0]
+	for i in range (0, len(rankings_container)):
+		player = rankings_container[i][0][1]
+		if name == player[0].text.strip() and year == player[2].text.split('Class of ')[1].strip():
+			return i+1
+
 def commitment_history(tree):
 	commitment_history = ''
 	
