@@ -24,7 +24,7 @@ for post in reddit.subreddit(config.subreddit).new(limit=50):
 	if str(post) in posts.keys():
 		continue
 	
-	if ('*' in title or 'star' in title) and ('commit' in title or 'decommit' in title or 'flip' in title):
+	if ('*' in title or 'star' in title) and ('commit' in title or 'decommit' in title or 'flip' in title or 'signs with' in title):
 		comment_text = ''
 		
 		try:
@@ -68,6 +68,9 @@ for post in reddit.subreddit(config.subreddit).new(limit=50):
 						player = player.split(' enters the NCAA transfer portal')[0].strip()
 					elif ' has entered the NCAA transfer portal' in player:
 						player = player.split(' has entered the NCAA transfer portal')[0].strip()
+					
+					# Nix apostrophes since these are inconsistent
+					player = player.replace("'", '').replace("’", '')
 					
 					comment_text = crootbot_functions.transfer(school, player)
 					comment_text += crootbot_functions.bottom_text('post', str(post))

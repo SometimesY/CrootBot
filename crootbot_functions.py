@@ -27,7 +27,8 @@ def commit_text(url):
 	except:
 		pass
 	
-	all_time_ranking_tree = page_tree('https://247sports.com/college/' + team + '/Sport/Football/AllTimeRecruits/')
+	all_time_ranking_tree = page_tree('https://247sports.com/college/' + team.replace(' ', '-').replace('&', '').replace('é', 'e').replace("'", '') + '/Sport/Football/AllTimeRecruits/')
+	
 	team_all_time_ranking = str(get247.all_time_ranking(all_time_ranking_tree, get247.name(tree), get247.year(tree)))
 	
 	if team_all_time_ranking != '' and team_all_time_ranking is not None and team_all_time_ranking != 'None':
@@ -232,7 +233,7 @@ def transfer(school, name):
 				player_page = tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/ul/li[' + str(i) + ']/div[1]/div[2]/a')[0].attrib['href']
 				player_page = 'https:' + player_page + '/high-school/'
 				
-				if player_name.lower() in name.lower() or name.lower() in player_name.lower():
+				if player_name.lower().replace("'", '') in name.lower() or name.lower() in player_name.lower().replace("'", ''):
 					return commit_text(player_page)
 			except:
 				pass
