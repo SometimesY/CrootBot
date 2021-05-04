@@ -75,10 +75,11 @@ def score_container(tree, row):
 def score(tree, row):
 	score = score_container(tree, row).text.strip()
 	
-	if score != '':
-		return score
-	else:
-		return 'N/A'
+	if score == '':
+		score = 'N/A'
+	
+	if row == 'composite':
+		score = '**' + score + '**'
 
 def stars_container(tree, row):
 	if row == 'composite':
