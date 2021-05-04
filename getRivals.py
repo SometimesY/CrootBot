@@ -50,17 +50,35 @@ def matching_player(name, year, hometown):
 def url(player):
 	return player['url']
 
+def score(player):
+	return str(player['rivals_rating'])
+
 def stars(player):
-	stars = player['stars']
-	star_list = ''
+	stars = ''
 	
 	for i in range (1, 6):
-		if i <= stars:
-			star_list += '★'
+		if i <= player['stars']:
+			stars += '★'
 		else:
-			star_list += '☆'
+			stars += '☆'
 	
-	return star_list
+	return stars
 
+def position_ranking(player):
+	if player['position_rank'] is not None:
+		return '\#' + str(player['position_rank']) + ' ' + player['position_abbreviation']
+	else:
+		return 'N/A'
 
+def state_ranking(player):
+	if player['state_rank'] is not None:
+		return '\#' + str(player['state_rank']) + ' in ' + player['state']
+	else:
+		return 'N/A'
+
+def overall_ranking(player):
+	if player['national_rank'] is not None:
+		return '\#' + str(player['national_rank']) + ' overall'
+	else:
+		return 'N/A'
 
