@@ -80,6 +80,8 @@ def score(tree, row):
 	
 	if row == 'composite':
 		score = '**' + score + '**'
+	
+	return score
 
 def stars_container(tree, row):
 	if row == 'composite':
