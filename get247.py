@@ -126,7 +126,7 @@ def state_ranking_container(tree, row):
 		return tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[2]/ul/li[3]/a/strong')[0]
 
 def state_ranking(tree, row):
-	ranking = position_ranking_container(tree, row).text.strip()
+	ranking = state_ranking_container(tree, row).text.strip()
 	
 	if ranking != '' and ranking != 'N/A':
 		ranking = '\#' + ranking + ' in ' + hometown(tree).split(', ')[1]
@@ -145,7 +145,7 @@ def overall_ranking_container(tree, row):
 		return tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[2]/ul/li[1]/a/strong')[0]
 
 def overall_ranking(tree, row):
-	ranking = position_ranking_container(tree, row).text.strip()
+	ranking = overall_ranking_container(tree, row).text.strip()
 	
 	if ranking != '' and ranking != 'N/A':
 		ranking = '\#' + ranking + ' overall'
