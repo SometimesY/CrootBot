@@ -114,7 +114,7 @@ def commit_text(url):
 	
 	return text
 
-def recruit_search(year, last_name, first_name, position):
+def recruit_search(year, position, first_name, last_name):
 	url = 'https://247sports.com/Season/' + year + '-Football/Recruits.json?&Items=15&Page=1&Player.LastName=' + last_name + '&Player.FirstName=' + first_name + '&Position.Key=' + position_keys[position]
 	
 	headers_full['referer'] = 'https://247sports.com/Season/' + year + '-Football/Recruits/?&Player.LastName=' + last_name + '&Player.FirstName=' + first_name
@@ -124,6 +124,7 @@ def recruit_search(year, last_name, first_name, position):
 	
 	# If prior year commit (i.e. active CFB or no longer CFB), go to high school profile
 	# Else, use profile
+	
 	if year < str(datetime.now().year):
 		url = json.loads(response.text)[0]['Player']['Url']
 		
@@ -139,12 +140,12 @@ def recruit_search(year, last_name, first_name, position):
 
 def team_class(year, team):
 	try:
-		url = 'https://247sports.com/college/' + sanitize_team(team) + '/Season/' + str(year) + '-Football/Commits/'
+		url = 'https://247sports.com/college/' + sanitize_team(team) + '/Season/' + year + '-Football/Commits/'
 		tree = page_tree(url)
 	except:
 		return None
 	
-	team_class = '##' + team + ' ' + str(year) + ' Class\n\n'
+	team_class = '##' + team + ' ' + year + ' Class\n\n'
 	team_class += '|National Rank|Conference Rank|Average Rating|\n'
 	team_class += '|:-:|:-:|:-:|\n'
 	
@@ -196,5 +197,5 @@ def transfer(team, name):
 				pass
 
 def bottom_text(post_or_comment, post_or_comment_id):
-	return 'Any bugs can be submitted as a PM to me [here](https://www.reddit.com/message/compose/?to=CFBCrootBot&subject=Bug+report+on+' + post_or_comment + '+id+' + post_or_comment_id + '&message=Enter+description+of+bug)! I am still learning, so please bear with me. I now have Rivals rankings, but they are not perfect. ESPN rankings are hopefully coming soonish. Check out the github repository for CFBCrootBot [here](https://github.com/SometimesY/CrootBot)!\n\nMake sure to check out the /r/CFB recruiting tool [here](https://www.redditcfb.com/recruiting.php) for generating your own commit posts.'
+	return 'Any bugs can be submitted as a **[PM to me](https://www.reddit.com/message/compose/?to=CFBCrootBot&subject=Bug+report+on+' + post_or_comment + '+id+' + post_or_comment_id + '&message=Enter+description+of+bug)**. I am still learning, so please bear with me. I now have Rivals rankings, but they are not perfect. ESPN rankings are hopefully coming soonish (but probably not since ESPN\'s search is broken and they don\'t seem to care). Check out the **[github repository](https://github.com/SometimesY/CrootBot)** for CFBCrootBot.\n\nYou can invoke me with, for instance:\n\n>/u/CFBCrootBot: 2017 Alabama\n\nto get Alabama\'s 2017 recruiting class, or via\n\n>/u/CFBCrootBot: 2015 PRO Joe Burrow\n\nto get Joe Burrow\'s recruit information.\n\nMake sure to check out the **[/r/CFB recruiting post generator here](https://www.redditcfb.com/recruiting.php)** for generating your own (de)commit posts.'
 

@@ -97,14 +97,7 @@ for message in reddit.inbox.unread():
 				year = body.split('u/' + config.username)[1].strip().split(' ')[0].strip()
 				team = body.split(year)[1].strip()
 				
-				try:
-					team_name = config.team_names[team]
-				except:
-					team_name = None
-				
-				year = int(year)
-				
-				comment_text = crootbot_functions.team_class(year, team, team_name) + '\n\n'
+				comment_text = crootbot_functions.team_class(year, team) + '\n\n'
 				comment_text += crootbot_functions.bottom_text('comment', str(comment))
 				
 				reply = comment.reply(comment_text)
@@ -118,7 +111,7 @@ for message in reddit.inbox.unread():
 					first_name = player.split(' ')[0].strip()
 					last_name = player.split(first_name)[1].strip()
 					
-					comment_text = crootbot_functions.recruit_search(year, last_name, first_name, position) + '\n\n'
+					comment_text = crootbot_functions.recruit_search(year, position, first_name, last_name) + '\n\n'
 					comment_text += crootbot_functions.bottom_text('comment', str(comment))
 					
 					reply = comment.reply(comment_text)
