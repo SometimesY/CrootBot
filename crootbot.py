@@ -41,7 +41,7 @@ for post in reddit.subreddit(config.subreddit).new(limit=50):
 			posts[str(post)] = int(comment.created_utc)
 		except:
 			pass
-	elif ' to transfer' in title or ' to grad transfer' in title or ' transfers to' in title or ' enters the portal' in title or ' has entered the portal' in title or ' enters the transfer portal' in title or ' has entered the transfer portal' in title or ' enters NCAA transfer portal' in title or ' has entered the NCAA transfer portal' in title:
+	elif ' to transfer' in title or ' to grad transfer' in title or ' transfers to' in title or ' enters the portal' in title or ' has entered the portal' in title or ' enters the transfer portal' in title or ' has entered the transfer portal' in title or ' enters ncaa transfer portal' in title or ' has entered the ncaa transfer portal' in title:
 		try:
 			for position in config.position_list:
 				if ' ' + position.lower() + ' ' in title:
