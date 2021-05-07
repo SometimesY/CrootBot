@@ -201,13 +201,13 @@ def team_conference_rank_container(tree):
 	return tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/section/div[2]/a')[0]
 
 def team_conference_rank(tree):
-	return team_national_rank_container(tree).text.strip()
+	return team_conference_rank_container(tree).text.strip()
 
 def team_average_rating_container(tree):
 	return tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/section/div[3]/span')[0]
 
 def team_average_rating(tree):
-	return team_national_rank_container(tree).text.strip()
+	return team_average_rating_container(tree).text.strip()
 
 def team_class_players_container(tree):
 	return tree.xpath('//*[@id="page-content"]/div[1]/section[2]/section/div/ul')[0]
