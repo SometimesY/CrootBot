@@ -102,12 +102,19 @@ def stars(tree, row):
 
 def position_ranking_container(tree, row):
 	if row == 'composite':
-		return tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[1]/ul/li[2]/a/strong')[0]
+		rankings_container = tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[1]/ul')[0]
 	else:
-		return tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[2]/ul/li[2]/a/strong')[0]
+		rankings_container = tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[2]/ul')[0]
+	
+	for item in rankings_container:
+		if item[0].text == position(tree):
+			return item[1][0]
 
 def position_ranking(tree, row):
-	ranking = position_ranking_container(tree, row).text.strip()
+	try:
+		ranking = position_ranking_container(tree, row).text.strip()
+	except:
+		ranking = 'N/A'
 	
 	if ranking != '' and ranking != 'N/A':
 		ranking = '\#' + ranking + ' ' + position(tree)
@@ -121,12 +128,19 @@ def position_ranking(tree, row):
 
 def state_ranking_container(tree, row):
 	if row == 'composite':
-		return tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[1]/ul/li[3]/a/strong')[0]
+		rankings_container = tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[1]/ul')[0]
 	else:
-		return tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[2]/ul/li[3]/a/strong')[0]
+		rankings_container = tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[2]/ul')[0]
+	
+	for item in rankings_container:
+		if item[0].text == hometown(tree).split(', ')[1]:
+			return item[1][0]
 
 def state_ranking(tree, row):
-	ranking = state_ranking_container(tree, row).text.strip()
+	try:
+		ranking = state_ranking_container(tree, row).text.strip()
+	except:
+		ranking = 'N/A'
 	
 	if ranking != '' and ranking != 'N/A':
 		ranking = '\#' + ranking + ' in ' + hometown(tree).split(', ')[1]
@@ -140,12 +154,19 @@ def state_ranking(tree, row):
 
 def overall_ranking_container(tree, row):
 	if row == 'composite':
-		return tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[1]/ul/li[1]/a/strong')[0]
+		rankings_container = tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[1]/ul')[0]
 	else:
-		return tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[2]/ul/li[1]/a/strong')[0]
+		rankings_container = tree.xpath('//*[@id="page-content"]/div/section/header/div[2]/section[1]/section[2]/ul')[0]
+	
+	for item in rankings_container:
+		if item[0].text == 'Natl.':
+			return item[1][0]
 
 def overall_ranking(tree, row):
-	ranking = overall_ranking_container(tree, row).text.strip()
+	try:
+		ranking = overall_ranking_container(tree, row).text.strip()
+	except:
+		ranking = 'N/A'
 	
 	if ranking != '' and ranking != 'N/A':
 		ranking = '\#' + ranking + ' overall'
